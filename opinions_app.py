@@ -4,6 +4,7 @@ from datetime import datetime
 from random import randrange
 
 from flask import Flask, redirect, render_template, url_for, flash
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, URLField
@@ -17,6 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'MY SECRET KEY'
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
 class Opinion(db.Model):
@@ -25,6 +27,7 @@ class Opinion(db.Model):
     text = db.Column(db.Text, unique=True, nullable=False)
     source = db.Column(db.String(256))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    added_by = db.Column(db.String(64))
 
 
 class OpinionForm(FlaskForm):
