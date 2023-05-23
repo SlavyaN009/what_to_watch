@@ -1,0 +1,10 @@
+[flake8]
+ignore = D100
+disable-noqa = True
+paths =
+    ./opinions_app
+max-complexity = 10
+max-line-length = 79
+exclude =
+    tests/
+    __init__.py
